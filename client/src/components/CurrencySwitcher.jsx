@@ -23,9 +23,9 @@ const CurrencySwitcher = () => {
     <div className="relative" ref={dropdownRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-1.5 px-3 py-1.5 bg-bg-surface border border-bg-border rounded-lg text-text-secondary hover:text-brand-cyan transition-colors text-sm font-mono focus:outline-none"
+        className="flex items-center gap-1.5 h-11 px-3 bg-bg-surface border border-bg-border rounded-lg text-text-secondary hover:text-brand-cyan transition-colors text-sm font-mono focus:outline-none"
       >
-        <span>{activeCurrency.symbol} {currency}</span>
+        <span>{activeCurrency.symbol}<span className="hidden lg:inline"> {currency}</span></span>
         <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${isOpen ? 'rotate-180 text-brand-cyan' : ''}`} />
       </button>
 

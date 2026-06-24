@@ -1,15 +1,13 @@
 import React, { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { Link, useNavigate } from 'react-router-dom';
-import { Package, LogOut, Loader2, Eye } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Loader2 } from 'lucide-react';
 import api from '../../lib/axios';
 import { formatCurrency } from '../../lib/utils';
-import { useAuth } from '../../store/AuthContext';
 import toast from 'react-hot-toast';
+import AdminLayout from '../../components/AdminLayout';
 
 const AdminOrders = () => {
-  const { logout } = useAuth();
-  const navigate = useNavigate();
   const queryClient = useQueryClient();
   const [filter, setFilter] = useState('all');
 
@@ -42,40 +40,13 @@ const AdminOrders = () => {
     }
   };
 
-  const handleLogout = () => {
-    logout();
-    navigate('/admin/login');
-  };
-
   const filteredOrders = orders?.filter(o => filter === 'all' || o.status === filter) || [];
 
   return (
-    <div className="flex min-h-screen bg-bg-base">
-      <aside className="w-64 bg-bg-surface border-r border-bg-border hidden md:flex flex-col">
-        <div className="p-6 border-b border-bg-border">
-           <h2 className="font-display font-bold text-2xl tracking-widest text-brand-violet">DOMINIC<span className="text-text-primary">/ADMIN</span></h2>
-        </div>
-        <nav className="flex-1 p-4 space-y-2">
-           <Link to="/admin/dashboard" className="flex items-center gap-3 p-3 text-text-secondary hover:text-text-primary hover:bg-bg-raised rounded-lg transition-colors">
-             <Package className="w-5 h-5" /> Dashboard
-           </Link>
-           <Link to="/admin/products" className="flex items-center gap-3 p-3 text-text-secondary hover:text-text-primary hover:bg-bg-raised rounded-lg transition-colors">
-             <Package className="w-5 h-5" /> Products
-           </Link>
-           <Link to="/admin/orders" className="flex items-center gap-3 p-3 bg-brand-violet/10 text-brand-violet rounded-lg font-medium">
-             <Package className="w-5 h-5" /> Orders
-           </Link>
-        </nav>
-        <div className="p-4 border-t border-bg-border">
-          <button onClick={handleLogout} className="flex items-center gap-3 p-3 w-full text-left text-status-error hover:bg-status-error/10 rounded-lg transition-colors">
-            <LogOut className="w-5 h-5" /> Logout
-          </button>
-        </div>
-      </aside>
-
-      <main className="flex-1 p-8 overflow-x-hidden">
+    <AdminLayout>
+      <main className="flex-1 p-4 sm:p-8 overflow-x-hidden">
         <header className="mb-8">
-          <h1 className="font-display text-3xl font-bold uppercase tracking-wide">Orders Manager</h1>
+          <h1 className="font-display text-2xl sm:text-3xl font-bold uppercase tracking-wide">Orders Manager</h1>
         </header>
 
         <div className="bg-bg-surface border border-bg-border rounded-xl overflow-hidden flex flex-col h-[calc(100vh-160px)]">
@@ -152,7 +123,7 @@ const AdminOrders = () => {
           </div>
         </div>
       </main>
-    </div>
+    </AdminLayout>
   );
 };
 

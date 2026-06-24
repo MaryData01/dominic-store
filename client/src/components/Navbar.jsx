@@ -46,16 +46,16 @@ const Navbar = () => {
   return (
     <>
       <nav className="sticky top-0 z-40 backdrop-blur-md bg-bg-base/80 border-b border-bg-border h-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-full flex items-center justify-between">
           
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-3 group">
+          <Link to="/" className="flex items-center gap-1.5 sm:gap-3 group">
             <img 
               src="https://res.cloudinary.com/dteqdjdq3/image/upload/v1781693192/8444318047406451_kpyzqz.jpg" 
               alt="Dominic Logo" 
               className="h-8 w-8 object-cover rounded-lg border border-bg-border group-hover:border-brand-cyan transition-colors"
             />
-            <span className="font-display font-bold text-2xl text-text-primary tracking-widest">
+            <span className="font-display font-bold text-xl sm:text-2xl text-text-primary tracking-widest">
               DOMINIC<span className="text-brand-cyan group-hover:text-text-primary transition-colors">/</span>
             </span>
           </Link>
@@ -78,10 +78,10 @@ const Navbar = () => {
           </div>
 
           {/* Right Icons */}
-          <div className="flex items-center space-x-5">
+          <div className="flex items-center space-x-1 sm:space-x-3">
             <button 
               onClick={() => setIsSearchOpen(true)}
-              className="text-text-secondary hover:text-brand-cyan transition-colors"
+              className="text-text-secondary hover:text-brand-cyan hover:bg-bg-raised/30 transition-colors w-11 h-11 flex items-center justify-center rounded-lg"
               aria-label="Search"
             >
               <Search className="w-5 h-5" />
@@ -91,7 +91,7 @@ const Navbar = () => {
 
             <button 
               onClick={() => setIsDrawerOpen(true)}
-              className="text-text-secondary hover:text-brand-cyan transition-colors relative"
+              className="text-text-secondary hover:text-brand-cyan hover:bg-bg-raised/30 transition-colors relative w-11 h-11 flex items-center justify-center rounded-lg"
               aria-label="Cart"
             >
               <ShoppingCart className="w-5 h-5" />
@@ -101,7 +101,7 @@ const Navbar = () => {
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
                     exit={{ scale: 0 }}
-                    className="absolute -top-2 -right-2 bg-brand-cyan text-bg-base text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center"
+                    className="absolute top-1.5 right-1.5 bg-brand-cyan text-bg-base text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center"
                   >
                     {cartItemCount}
                   </motion.span>
@@ -114,11 +114,11 @@ const Navbar = () => {
               <div className="relative" ref={userDropdownRef}>
                 <button 
                   onClick={() => setIsUserDropdownOpen(!isUserDropdownOpen)}
-                  className="text-text-secondary hover:text-brand-cyan transition-colors relative flex items-center justify-center p-1"
+                  className="text-text-secondary hover:text-brand-cyan hover:bg-bg-raised/30 transition-colors relative flex items-center justify-center w-11 h-11 rounded-lg"
                   aria-label="User profile"
                 >
                   <User className="w-5 h-5" />
-                  <span className="absolute -top-0.5 -right-0.5 w-2 h-2 bg-status-success rounded-full border border-bg-base" />
+                  <span className="absolute top-2 right-2 w-2 h-2 bg-status-success rounded-full border border-bg-base" />
                 </button>
                 
                 {isUserDropdownOpen && (
@@ -147,7 +147,7 @@ const Navbar = () => {
             ) : (
               <Link 
                 to="/login"
-                className="text-text-secondary hover:text-brand-cyan transition-colors flex items-center justify-center p-1"
+                className="text-text-secondary hover:text-brand-cyan hover:bg-bg-raised/30 transition-colors flex items-center justify-center w-11 h-11 rounded-lg"
                 aria-label="Login"
               >
                 <User className="w-5 h-5" />
@@ -157,7 +157,7 @@ const Navbar = () => {
             {/* Mobile Menu Toggle */}
             <button 
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="lg:hidden text-text-secondary hover:text-text-primary transition-colors"
+              className="lg:hidden text-text-secondary hover:text-text-primary hover:bg-bg-raised/30 transition-colors w-11 h-11 flex items-center justify-center rounded-lg"
               aria-label="Toggle menu"
             >
               <Menu className="w-6 h-6" />

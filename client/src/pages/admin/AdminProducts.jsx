@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { Link, useNavigate } from 'react-router-dom';
-import { Package, Plus, Trash2, Edit, LogOut, Loader2, UploadCloud } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Plus, Trash2, Edit, Loader2, UploadCloud } from 'lucide-react';
 import api from '../../lib/axios';
 import { formatCurrency } from '../../lib/utils';
-import { useAuth } from '../../store/AuthContext';
 import toast from 'react-hot-toast';
+import AdminLayout from '../../components/AdminLayout';
 
 const specsToText = (specsObj) => {
   if (!specsObj) return '';
@@ -50,8 +50,6 @@ const initialFormState = {
 };
 
 const AdminProducts = () => {
-  const { logout } = useAuth();
-  const navigate = useNavigate();
   const queryClient = useQueryClient();
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState('');
@@ -200,41 +198,14 @@ const AdminProducts = () => {
     }
   };
 
-  const handleLogout = () => {
-    logout();
-    navigate('/admin/login');
-  };
-
   return (
-    <div className="flex min-h-screen bg-bg-base">
-      <aside className="w-64 bg-bg-surface border-r border-bg-border hidden md:flex flex-col">
-        <div className="p-6 border-b border-bg-border">
-           <h2 className="font-display font-bold text-2xl tracking-widest text-brand-violet">DOMINIC<span className="text-text-primary">/ADMIN</span></h2>
-        </div>
-        <nav className="flex-1 p-4 space-y-2">
-           <Link to="/admin/dashboard" className="flex items-center gap-3 p-3 text-text-secondary hover:text-text-primary hover:bg-bg-raised rounded-lg transition-colors">
-             <Package className="w-5 h-5" /> Dashboard
-           </Link>
-           <Link to="/admin/products" className="flex items-center gap-3 p-3 bg-brand-violet/10 text-brand-violet rounded-lg font-medium">
-             <Package className="w-5 h-5" /> Products
-           </Link>
-           <Link to="/admin/orders" className="flex items-center gap-3 p-3 text-text-secondary hover:text-text-primary hover:bg-bg-raised rounded-lg transition-colors">
-             <Package className="w-5 h-5" /> Orders
-           </Link>
-        </nav>
-        <div className="p-4 border-t border-bg-border">
-          <button onClick={handleLogout} className="flex items-center gap-3 p-3 w-full text-left text-status-error hover:bg-status-error/10 rounded-lg transition-colors">
-            <LogOut className="w-5 h-5" /> Logout
-          </button>
-        </div>
-      </aside>
-
-      <main className="flex-1 p-8 overflow-x-hidden">
-        <header className="mb-8 flex justify-between items-center">
-          <h1 className="font-display text-3xl font-bold uppercase tracking-wide">Products Manager</h1>
+    <AdminLayout>
+      <main className="flex-1 p-4 sm:p-8 overflow-x-hidden">
+        <header className="mb-8 flex justify-between items-center gap-4">
+          <h1 className="font-display text-2xl sm:text-3xl font-bold uppercase tracking-wide">Products Manager</h1>
           <button 
             onClick={openAddModal}
-            className="bg-brand-violet hover:bg-brand-violet/90 text-bg-base px-4 py-2 rounded-lg font-bold flex items-center gap-2 transition-colors"
+            className="bg-brand-violet hover:bg-brand-violet/90 text-bg-base px-4 py-2 rounded-lg font-bold flex items-center gap-2 transition-colors shrink-0"
           >
             <Plus className="w-5 h-5" /> Add Product
           </button>
@@ -329,8 +300,8 @@ const AdminProducts = () => {
 
       {/* Modal */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm overflow-y-auto">
-          <div className="bg-bg-surface border border-bg-border rounded-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto flex flex-col p-6 custom-scrollbar">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-0 sm:p-4 bg-black/75 backdrop-blur-sm overflow-y-auto">
+          <div className="bg-bg-surface border-0 sm:border border-bg-border rounded-none sm:rounded-xl w-full max-w-2xl h-full sm:h-auto sm:max-h-[90vh] overflow-y-auto flex flex-col p-4 sm:p-6 custom-scrollbar">
             <h2 className="font-display text-2xl font-bold mb-4 uppercase text-text-primary">
               {editingProduct ? 'Edit Product' : 'Add New Product'}
             </h2>
@@ -529,7 +500,7 @@ const AdminProducts = () => {
           </div>
         </div>
       )}
-    </div>
+    </AdminLayout>
   );
 };
 

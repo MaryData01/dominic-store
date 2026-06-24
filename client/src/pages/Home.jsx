@@ -39,7 +39,7 @@ const Home = () => {
     <motion.div variants={pageVariants} initial="initial" animate="animate" exit="exit">
       
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center pt-16 overflow-hidden">
+      <section className="relative min-h-screen flex items-center pt-24 pb-12 lg:py-0 overflow-hidden">
         {/* Background gradient */}
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-brand-violet/10 via-bg-base to-bg-base -z-10" />
         
@@ -56,7 +56,7 @@ const Home = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0 }}
-                className="font-display text-6xl lg:text-7xl font-bold text-text-primary leading-[1.1] mb-6 tracking-tight"
+                className="font-display text-4xl sm:text-6xl lg:text-7xl font-bold text-text-primary leading-[1.1] mb-6 tracking-tight"
               >
                 GEAR UP. <br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-violet">PLAY DIFFERENT.</span>
               </motion.h1>
@@ -65,7 +65,7 @@ const Home = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.15 }}
-                className="font-body text-lg text-text-secondary mb-10 max-w-lg leading-relaxed"
+                className="font-body text-base sm:text-lg text-text-secondary mb-10 max-w-lg leading-relaxed"
               >
                 Premium gaming peripherals for setups that mean business. Curated gear for gamers, streamers, and enthusiasts.
               </motion.p>
@@ -96,9 +96,9 @@ const Home = () => {
               initial={{ opacity: 0, x: 40 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.1, duration: 0.8, ease: "easeOut" }}
-              className="hidden lg:flex relative h-[600px] w-full items-center justify-center perspective-[1000px]"
+              className="flex relative h-[300px] sm:h-[450px] lg:h-[600px] w-full items-center justify-center perspective-[1000px]"
             >
-               <div className="relative w-full max-w-md aspect-[3/4] bg-bg-raised border border-bg-border rounded-2xl shadow-[0_0_80px_rgba(124,58,237,0.15)] overflow-hidden transform rotate-y-[-15deg] rotate-x-[5deg] hover:rotate-y-0 hover:rotate-x-0 transition-transform duration-700 ease-out">
+               <div className="relative w-full max-w-md aspect-[3/4] bg-bg-raised border border-bg-border rounded-2xl shadow-[0_0_80px_rgba(124,58,237,0.15)] overflow-hidden transform lg:rotate-y-[-15deg] lg:rotate-x-[5deg] hover:lg:rotate-y-0 hover:lg:rotate-x-0 transition-transform duration-700 ease-out">
                   <img 
                     src="https://res.cloudinary.com/dteqdjdq3/image/upload/q_auto/f_auto/v1781689186/This_Gaming_Setup_Looks_Unreal_ioiixj.jpg" 
                     alt="Dominic Store Setup" 
@@ -205,16 +205,16 @@ const Home = () => {
                  <div className="w-3 h-3 rounded-full bg-status-warning/50"></div>
                  <div className="w-3 h-3 rounded-full bg-status-success/50"></div>
                </div>
-               <div className="mt-8 grid grid-cols-3 gap-4">
-                 <div className="col-span-1 flex flex-col gap-2">
+               <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4">
+                 <div className="col-span-1 flex flex-row sm:flex-col gap-2 overflow-x-auto pb-2 sm:pb-0 scrollbar-none">
                    {['Monitor', 'Keyboard', 'Mouse', 'Headset'].map((item, i) => (
-                     <div key={item} className={`p-3 rounded border text-sm font-mono ${i===1 ? 'bg-brand-cyan/10 border-brand-cyan text-brand-cyan' : 'bg-bg-raised border-bg-border text-text-muted'}`}>
+                     <div key={item} className={`p-2.5 sm:p-3 rounded border text-xs sm:text-sm font-mono whitespace-nowrap ${i===1 ? 'bg-brand-cyan/10 border-brand-cyan text-brand-cyan' : 'bg-bg-raised border-bg-border text-text-muted'}`}>
                        {item}
                      </div>
                    ))}
                  </div>
-                 <div className="col-span-2 bg-bg-raised rounded border border-bg-border p-4 flex flex-col justify-between">
-                   <div className="w-full h-32 bg-bg-base rounded mb-4 flex items-center justify-center text-text-muted border border-dashed border-bg-border">Preview Area</div>
+                 <div className="sm:col-span-2 bg-bg-raised rounded border border-bg-border p-4 flex flex-col justify-between min-h-[180px] sm:min-h-0">
+                   <div className="w-full h-24 sm:h-32 bg-bg-base rounded mb-4 flex items-center justify-center text-text-muted border border-dashed border-bg-border text-sm">Preview Area</div>
                    <div className="flex justify-between items-center">
                      <span className="font-mono text-text-secondary text-sm">Total: {formatPrice(450000)}</span>
                      <div className="h-8 w-24 bg-brand-cyan rounded"></div>

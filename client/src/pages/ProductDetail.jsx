@@ -171,12 +171,12 @@ const ProductDetail = () => {
           </div>
           
           {product.images && product.images.length > 1 && (
-            <div className="flex gap-4 overflow-x-auto pb-2">
+            <div className="flex gap-3 sm:gap-4 overflow-x-auto pb-2 scrollbar-none flex-nowrap">
               {product.images.map((img, idx) => (
                 <button 
                   key={idx}
                   onClick={() => setActiveImage(idx)}
-                  className={`w-20 h-20 shrink-0 bg-bg-raised rounded-lg border-2 overflow-hidden transition-colors ${
+                  className={`w-16 h-16 sm:w-20 sm:h-20 shrink-0 bg-bg-raised rounded-lg border-2 overflow-hidden transition-colors ${
                     activeImage === idx ? 'border-brand-cyan' : 'border-bg-border hover:border-text-muted'
                   }`}
                 >
@@ -228,51 +228,70 @@ const ProductDetail = () => {
           <hr className="border-bg-border mb-8" />
 
           {/* Add to Cart Controls */}
-          <div className="flex items-center gap-4 mb-8">
-            <div className="flex items-center border border-bg-border rounded-lg bg-bg-surface h-14">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-8">
+            <div className="flex items-center justify-between gap-3">
+              <div className="flex items-center border border-bg-border rounded-lg bg-bg-surface h-14 w-32 shrink-0">
+                <button 
+                  onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                  className="px-4 h-full text-text-secondary hover:text-text-primary hover:bg-bg-raised transition-colors rounded-l-lg"
+                  aria-label="Decrease quantity"
+                >
+                  <Minus className="w-5 h-5" />
+                </button>
+                <input 
+                  type="number" 
+                  value={quantity}
+                  onChange={(e) => {
+                    const val = parseInt(e.target.value);
+                    if (val > 0 && val <= 10) setQuantity(val);
+                  }}
+                  className="w-8 text-center bg-transparent border-none focus:ring-0 font-mono text-lg p-0"
+                  min="1" max="10"
+                />
+                <button 
+                  onClick={() => setQuantity(Math.min(10, quantity + 1))}
+                  className="px-4 h-full text-text-secondary hover:text-text-primary hover:bg-bg-raised transition-colors rounded-r-lg"
+                  aria-label="Increase quantity"
+                >
+                  <Plus className="w-5 h-5" />
+                </button>
+              </div>
+
               <button 
-                onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                className="px-4 h-full text-text-secondary hover:text-text-primary hover:bg-bg-raised transition-colors rounded-l-lg"
+                onClick={handleWishlist}
+                className={`h-14 w-14 shrink-0 flex items-center justify-center border rounded-lg transition-colors sm:hidden ${
+                  isWishlisted 
+                    ? 'border-status-error text-status-error bg-status-error/10' 
+                    : 'border-bg-border text-text-secondary hover:border-text-muted hover:text-text-primary bg-bg-surface'
+                }`}
+                aria-label="Add to wishlist"
               >
-                <Minus className="w-5 h-5" />
-              </button>
-              <input 
-                type="number" 
-                value={quantity}
-                onChange={(e) => {
-                  const val = parseInt(e.target.value);
-                  if (val > 0 && val <= 10) setQuantity(val);
-                }}
-                className="w-12 text-center bg-transparent border-none focus:ring-0 font-mono text-lg p-0"
-                min="1" max="10"
-              />
-              <button 
-                onClick={() => setQuantity(Math.min(10, quantity + 1))}
-                className="px-4 h-full text-text-secondary hover:text-text-primary hover:bg-bg-raised transition-colors rounded-r-lg"
-              >
-                <Plus className="w-5 h-5" />
+                <Heart className={`w-6 h-6 ${isWishlisted ? 'fill-current' : ''}`} />
               </button>
             </div>
 
-            <button 
-              onClick={handleAddToCart}
-              disabled={!inStock}
-              className="flex-1 h-14 bg-brand-cyan hover:bg-brand-cyan/90 text-bg-base font-display font-bold text-lg rounded-lg transition-colors flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              <ShoppingCart className="w-5 h-5" />
-              {inStock ? 'Add to Cart' : 'Out of Stock'}
-            </button>
+            <div className="flex gap-3 sm:gap-4 flex-1">
+              <button 
+                onClick={handleAddToCart}
+                disabled={!inStock}
+                className="flex-1 h-14 bg-brand-cyan hover:bg-brand-cyan/90 text-bg-base font-display font-bold text-lg rounded-lg transition-colors flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                <ShoppingCart className="w-5 h-5" />
+                {inStock ? 'Add to Cart' : 'Out of Stock'}
+              </button>
 
-            <button 
-              onClick={handleWishlist}
-              className={`h-14 w-14 flex items-center justify-center border rounded-lg transition-colors ${
-                isWishlisted 
-                  ? 'border-status-error text-status-error bg-status-error/10' 
-                  : 'border-bg-border text-text-secondary hover:border-text-muted hover:text-text-primary bg-bg-surface'
-              }`}
-            >
-              <Heart className={`w-6 h-6 ${isWishlisted ? 'fill-current' : ''}`} />
-            </button>
+              <button 
+                onClick={handleWishlist}
+                className={`h-14 w-14 shrink-0 hidden sm:flex items-center justify-center border rounded-lg transition-colors ${
+                  isWishlisted 
+                    ? 'border-status-error text-status-error bg-status-error/10' 
+                    : 'border-bg-border text-text-secondary hover:border-text-muted hover:text-text-primary bg-bg-surface'
+                }`}
+                aria-label="Add to wishlist"
+              >
+                <Heart className={`w-6 h-6 ${isWishlisted ? 'fill-current' : ''}`} />
+              </button>
+            </div>
           </div>
 
           {/* Specs Table */}

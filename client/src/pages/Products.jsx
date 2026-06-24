@@ -82,6 +82,61 @@ const Products = () => {
     setSearchParams(params);
   };
 
+  const renderFiltersContent = () => (
+    <>
+      <div className="flex justify-between items-center mb-6">
+        <h3 className="font-display font-bold text-lg text-text-primary">Filters</h3>
+        {(selectedCategories.length > 0 || minPrice || maxPrice) && (
+          <button onClick={clearFilters} className="text-xs font-body text-brand-cyan hover:underline">
+            Clear All
+          </button>
+        )}
+      </div>
+
+      {/* Categories */}
+      <div className="mb-8">
+        <h4 className="font-body font-medium text-sm text-text-secondary mb-4 uppercase tracking-wider">Category</h4>
+        <div className="space-y-3">
+          {categories.map(cat => (
+            <label key={cat} className="flex items-center group cursor-pointer">
+              <input 
+                type="checkbox" 
+                checked={selectedCategories.includes(cat)}
+                onChange={() => toggleCategory(cat)}
+                className="w-4 h-4 rounded border-bg-border bg-bg-base text-brand-cyan focus:ring-brand-cyan/50 focus:ring-offset-bg-surface"
+              />
+              <span className="ml-3 font-body text-sm text-text-primary group-hover:text-brand-cyan capitalize">
+                {cat.replace('-', ' ')}
+              </span>
+            </label>
+          ))}
+        </div>
+      </div>
+
+      {/* Price */}
+      <div>
+        <h4 className="font-body font-medium text-sm text-text-secondary mb-4 uppercase tracking-wider">Price ({CURRENCIES[currency].symbol})</h4>
+        <div className="flex items-center gap-2">
+          <input 
+            type="number" 
+            placeholder="Min"
+            value={minPrice}
+            onChange={(e) => handlePriceChange('minPrice', e.target.value)}
+            className="w-full bg-bg-base border border-bg-border rounded text-sm px-2 py-2 text-text-primary focus:border-brand-cyan outline-none font-mono"
+          />
+          <span className="text-text-muted">-</span>
+          <input 
+            type="number" 
+            placeholder="Max"
+            value={maxPrice}
+            onChange={(e) => handlePriceChange('maxPrice', e.target.value)}
+            className="w-full bg-bg-base border border-bg-border rounded text-sm px-2 py-2 text-text-primary focus:border-brand-cyan outline-none font-mono"
+          />
+        </div>
+      </div>
+    </>
+  );
+
   return (
     <motion.div 
       initial={{ opacity: 0, y: 16 }} 
@@ -127,75 +182,53 @@ const Products = () => {
 
       <div className="flex flex-col md:flex-row gap-8">
         
-        {/* Sidebar Filters */}
+        {/* Mobile Sidebar Filters Drawer */}
         <AnimatePresence>
-          {(isFilterOpen || window.innerWidth >= 768) && (
-            <motion.div 
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: 'auto', opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              className="md:w-64 shrink-0 overflow-hidden md:overflow-visible"
-            >
-              <div className="bg-bg-surface border border-bg-border rounded-xl p-6 sticky top-24">
+          {isFilterOpen && (
+            <>
+              {/* Backdrop */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 0.5 }}
+                exit={{ opacity: 0 }}
+                onClick={() => setIsFilterOpen(false)}
+                className="fixed inset-0 bg-black z-50 md:hidden"
+              />
+              {/* Drawer Content */}
+              <motion.div
+                initial={{ x: '-100%' }}
+                animate={{ x: 0 }}
+                exit={{ x: '-100%' }}
+                transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+                className="fixed inset-y-0 left-0 w-80 bg-bg-surface border-r border-bg-border z-50 p-6 overflow-y-auto md:hidden"
+              >
                 <div className="flex justify-between items-center mb-6">
-                  <h3 className="font-display font-bold text-lg text-text-primary">Filters</h3>
-                  {(selectedCategories.length > 0 || minPrice || maxPrice) && (
-                    <button onClick={clearFilters} className="text-xs font-body text-brand-cyan hover:underline">
-                      Clear All
-                    </button>
-                  )}
+                  <h3 className="font-display font-bold text-xl text-text-primary">Filters</h3>
+                  <button 
+                    onClick={() => setIsFilterOpen(false)}
+                    className="p-2 text-text-secondary hover:text-text-primary rounded-lg"
+                    aria-label="Close filters"
+                  >
+                    <X className="w-6 h-6" />
+                  </button>
                 </div>
-
-                {/* Categories */}
-                <div className="mb-8">
-                  <h4 className="font-body font-medium text-sm text-text-secondary mb-4 uppercase tracking-wider">Category</h4>
-                  <div className="space-y-3">
-                    {categories.map(cat => (
-                      <label key={cat} className="flex items-center group cursor-pointer">
-                        <input 
-                          type="checkbox" 
-                          checked={selectedCategories.includes(cat)}
-                          onChange={() => toggleCategory(cat)}
-                          className="w-4 h-4 rounded border-bg-border bg-bg-base text-brand-cyan focus:ring-brand-cyan/50 focus:ring-offset-bg-surface"
-                        />
-                        <span className="ml-3 font-body text-sm text-text-primary group-hover:text-brand-cyan capitalize">
-                          {cat.replace('-', ' ')}
-                        </span>
-                      </label>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Price */}
-                <div>
-                  <h4 className="font-body font-medium text-sm text-text-secondary mb-4 uppercase tracking-wider">Price ({CURRENCIES[currency].symbol})</h4>
-                  <div className="flex items-center gap-2">
-                    <input 
-                      type="number" 
-                      placeholder="Min"
-                      value={minPrice}
-                      onChange={(e) => handlePriceChange('minPrice', e.target.value)}
-                      className="w-full bg-bg-base border border-bg-border rounded text-sm px-2 py-2 text-text-primary focus:border-brand-cyan outline-none font-mono"
-                    />
-                    <span className="text-text-muted">-</span>
-                    <input 
-                      type="number" 
-                      placeholder="Max"
-                      value={maxPrice}
-                      onChange={(e) => handlePriceChange('maxPrice', e.target.value)}
-                      className="w-full bg-bg-base border border-bg-border rounded text-sm px-2 py-2 text-text-primary focus:border-brand-cyan outline-none font-mono"
-                    />
-                  </div>
-                </div>
-              </div>
-            </motion.div>
+                {renderFiltersContent()}
+              </motion.div>
+            </>
           )}
         </AnimatePresence>
+
+        {/* Desktop Sidebar Filters */}
+        <div className="hidden md:block md:w-64 shrink-0">
+          <div className="bg-bg-surface border border-bg-border rounded-xl p-6 sticky top-24">
+            {renderFiltersContent()}
+          </div>
+        </div>
 
         {/* Product Grid */}
         <div className="flex-1">
           {isLoading ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6">
+            <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6">
               {[1,2,3,4,5,6,7,8].map(n => (
                 <SkeletonProductCard key={n} />
               ))}
@@ -217,7 +250,7 @@ const Products = () => {
           ) : (
             <>
               <motion.div 
-                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6"
+                className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6"
                 initial="hidden"
                 animate="visible"
                 variants={{

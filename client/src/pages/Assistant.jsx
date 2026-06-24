@@ -157,7 +157,7 @@ const Assistant = () => {
       </div>
 
       {/* Chat Area */}
-      <div className="flex-1 bg-bg-base overflow-y-auto p-6 md:p-12 custom-scrollbar">
+      <div className="flex-1 bg-bg-base overflow-y-auto p-4 md:p-12 custom-scrollbar">
         {messages.length === 0 ? (
           <div className="h-full flex flex-col items-center justify-center text-center max-w-lg mx-auto">
             <Bot className="w-16 h-16 text-text-muted mb-6" />
@@ -178,20 +178,20 @@ const Assistant = () => {
             </div>
           </div>
         ) : (
-          <div className="space-y-6">
+          <div className="space-y-4 sm:space-y-6">
             {messages.map((msg, i) => (
               <motion.div 
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 key={i} 
-                className={`flex gap-4 ${msg.role === 'user' ? 'flex-row-reverse' : ''}`}
+                className={`flex gap-2 sm:gap-4 ${msg.role === 'user' ? 'flex-row-reverse' : ''}`}
               >
-                <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${
+                <div className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center shrink-0 ${
                   msg.role === 'user' ? 'bg-brand-violet' : 'bg-brand-cyan/20 border border-brand-cyan'
                 }`}>
-                  {msg.role === 'user' ? <User className="w-4 h-4 text-bg-base" /> : <Bot className="w-4 h-4 text-brand-cyan" />}
+                  {msg.role === 'user' ? <User className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-bg-base" /> : <Bot className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-brand-cyan" />}
                 </div>
-                <div className={`max-w-[80%] rounded-2xl p-4 font-body leading-relaxed whitespace-pre-wrap ${
+                <div className={`max-w-[85%] sm:max-w-[80%] rounded-2xl p-3 sm:p-4 text-sm sm:text-base font-body leading-relaxed whitespace-pre-wrap ${
                   msg.role === 'user' 
                     ? 'bg-brand-violet text-bg-base rounded-tr-none' 
                     : 'bg-bg-raised border border-bg-border text-text-primary rounded-tl-none'
@@ -201,14 +201,14 @@ const Assistant = () => {
               </motion.div>
             ))}
             {isTyping && (
-              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex gap-4">
-                <div className="w-8 h-8 rounded-full bg-brand-cyan/20 border border-brand-cyan flex items-center justify-center shrink-0">
-                  <Bot className="w-4 h-4 text-brand-cyan" />
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex gap-2 sm:gap-4">
+                <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-brand-cyan/20 border border-brand-cyan flex items-center justify-center shrink-0">
+                  <Bot className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-brand-cyan" />
                 </div>
-                <div className="bg-bg-raised border border-bg-border rounded-2xl rounded-tl-none p-4 flex gap-1 items-center">
-                  <div className="w-2 h-2 bg-text-muted rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
-                  <div className="w-2 h-2 bg-text-muted rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
-                  <div className="w-2 h-2 bg-text-muted rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+                <div className="bg-bg-raised border border-bg-border rounded-2xl rounded-tl-none p-3 sm:p-4 flex gap-1 items-center">
+                  <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-text-muted rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+                  <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-text-muted rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+                  <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-text-muted rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
                 </div>
               </motion.div>
             )}

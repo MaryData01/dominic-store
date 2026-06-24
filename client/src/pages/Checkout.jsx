@@ -83,23 +83,23 @@ const Checkout = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       
-      {/* Steps Indicator */}
-      <div className="flex items-center justify-center space-x-4 mb-12 overflow-x-auto pb-4">
+      <div className="flex items-center justify-center space-x-2 sm:space-x-4 mb-12 pb-4">
         {[
-          { num: 1, label: 'Cart Review' },
-          { num: 2, label: 'Contact Details' },
-          { num: 3, label: 'Payment' }
+          { num: 1, label: 'Cart Review', short: 'Cart' },
+          { num: 2, label: 'Contact Details', short: 'Details' },
+          { num: 3, label: 'Payment', short: 'Pay' }
         ].map((s, i) => (
           <React.Fragment key={s.num}>
-            <div className={`flex items-center gap-2 ${step >= s.num ? 'text-brand-cyan' : 'text-text-muted'}`}>
-              <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm border-2 ${
+            <div className={`flex items-center gap-1.5 sm:gap-2 ${step >= s.num ? 'text-brand-cyan' : 'text-text-muted'}`}>
+              <div className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center font-bold text-xs sm:text-sm border-2 ${
                 step >= s.num ? 'border-brand-cyan bg-brand-cyan/10' : 'border-bg-border bg-bg-surface'
               }`}>
-                {step > s.num ? <CheckCircle2 className="w-5 h-5" /> : s.num}
+                {step > s.num ? <CheckCircle2 className="w-4 h-4 sm:w-5 sm:h-5" /> : s.num}
               </div>
-              <span className="font-display font-bold uppercase tracking-wider hidden sm:block whitespace-nowrap">{s.label}</span>
+              <span className="font-display font-bold uppercase tracking-wider hidden sm:block whitespace-nowrap text-sm">{s.label}</span>
+              <span className="font-display font-bold uppercase tracking-wider sm:hidden whitespace-nowrap text-xs">{s.short}</span>
             </div>
-            {i < 2 && <div className={`w-8 sm:w-16 h-[2px] ${step > s.num ? 'bg-brand-cyan' : 'bg-bg-border'}`} />}
+            {i < 2 && <div className={`w-4 sm:w-16 h-[2px] ${step > s.num ? 'bg-brand-cyan' : 'bg-bg-border'}`} />}
           </React.Fragment>
         ))}
       </div>

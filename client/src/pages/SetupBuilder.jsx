@@ -92,7 +92,7 @@ const SetupBuilder = () => {
           <p className="text-text-secondary mt-1">Select one item per category.</p>
         </div>
         
-        <div className="flex-1 overflow-y-auto p-4 space-y-2 custom-scrollbar">
+        <div className="flex flex-row lg:flex-col overflow-x-auto lg:overflow-y-auto p-4 gap-2 scrollbar-none custom-scrollbar">
           {categories.map((cat) => {
             const isSelected = !!selections[cat.id];
             const isActive = activeTab === cat.id;
@@ -101,20 +101,20 @@ const SetupBuilder = () => {
               <button
                 key={cat.id}
                 onClick={() => setActiveTab(cat.id)}
-                className={`w-full flex items-center justify-between p-4 rounded-lg transition-all ${
+                className={`flex items-center justify-between gap-3 px-4 py-2 lg:p-4 rounded-full lg:rounded-lg shrink-0 transition-all border text-sm lg:text-base ${
                   isActive 
-                    ? 'bg-brand-cyan/10 border border-brand-cyan text-brand-cyan' 
-                    : 'bg-bg-base border border-bg-border text-text-primary hover:border-brand-violet/50'
-                }`}
+                    ? 'bg-brand-cyan/10 border-brand-cyan text-brand-cyan' 
+                    : 'bg-bg-base border-bg-border text-text-primary hover:border-brand-violet/50'
+                } lg:w-full`}
               >
-                <div className="flex items-center gap-3">
-                  <span className="font-display font-bold text-lg">{cat.name}</span>
+                <span className="font-display font-bold text-sm lg:text-lg whitespace-nowrap">{cat.name}</span>
+                <div className="flex items-center">
+                  {isSelected ? (
+                    <CheckCircle2 className={`w-4 h-4 lg:w-5 lg:h-5 ${isActive ? 'text-brand-cyan' : 'text-status-success'}`} />
+                  ) : (
+                    <span className="text-[10px] lg:text-xs font-mono text-text-muted hidden lg:block">[empty]</span>
+                  )}
                 </div>
-                {isSelected ? (
-                  <CheckCircle2 className={`w-5 h-5 ${isActive ? 'text-brand-cyan' : 'text-status-success'}`} />
-                ) : (
-                  <span className="text-xs font-mono text-text-muted">[empty]</span>
-                )}
               </button>
             );
           })}
