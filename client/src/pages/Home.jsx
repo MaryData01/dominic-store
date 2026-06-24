@@ -96,9 +96,9 @@ const Home = () => {
               initial={{ opacity: 0, x: 40 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.1, duration: 0.8, ease: "easeOut" }}
-              className="flex relative h-[300px] sm:h-[450px] lg:h-[600px] w-full items-center justify-center perspective-[1000px]"
+              className="flex relative h-[380px] sm:h-[450px] lg:h-[600px] w-full items-center justify-center perspective-[1000px] mt-6 lg:mt-0"
             >
-               <div className="relative w-full max-w-md aspect-[3/4] bg-bg-raised border border-bg-border rounded-2xl shadow-[0_0_80px_rgba(124,58,237,0.15)] overflow-hidden transform lg:rotate-y-[-15deg] lg:rotate-x-[5deg] hover:lg:rotate-y-0 hover:lg:rotate-x-0 transition-transform duration-700 ease-out">
+               <div className="relative w-full max-w-[280px] sm:max-w-md aspect-[3/4] bg-bg-raised border border-bg-border rounded-2xl shadow-[0_0_80px_rgba(124,58,237,0.15)] overflow-hidden transform lg:rotate-y-[-15deg] lg:rotate-x-[5deg] hover:lg:rotate-y-0 hover:lg:rotate-x-0 transition-transform duration-700 ease-out">
                   <img 
                     src="https://res.cloudinary.com/dteqdjdq3/image/upload/q_auto/f_auto/v1781689186/This_Gaming_Setup_Looks_Unreal_ioiixj.jpg" 
                     alt="Dominic Store Setup" 
